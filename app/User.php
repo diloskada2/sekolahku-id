@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'user_as', 'super_user'
     ];
 
     /**
@@ -36,4 +36,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Get All User
+    static function listData() {
+        $sql = "SELECT u.id, u.name, u.email, u.user_as, u.super_user, u.created_at, u.updated_at FROM users AS u";
+        $data = \DB::select($sql);
+
+        return $data;
+    }
+
+    // Get User By ID
+    static function getById($id) {
+        $sql = "SELECT u.id, u.name, u.email, u.user_as, u.super_user, u.created_at, u.updated_at FROM users AS u WHERE u.id = $id";
+        $data = \DB::select($sql);
+
+        return $data[0];
+    }
 }
