@@ -13,6 +13,14 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/', function() {
+    return response()->json("Sekolahku API", 200);
+});
+
+Route::group(['prefix' => 'user'], function () {
+    Route::post('create', 'Api\UserController@create');
+    Route::get('list', 'Api\UserController@list');
+    Route::get('read', 'Api\UserController@read');
+    Route::put('update', 'Api\UserController@update');
+    Route::delete('delete', 'Api\UserController@delete');
 });
