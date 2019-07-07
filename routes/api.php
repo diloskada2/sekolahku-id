@@ -24,3 +24,11 @@ Route::group(['prefix' => 'user'], function () {
     Route::put('update', 'Api\UserController@update');
     Route::delete('delete', 'Api\UserController@delete');
 });
+
+Route::group(['prefix' => 'religion'], function () {
+    Route::post('create', 'Api\ReligionController@create');
+    Route::get('list', 'Api\ReligionController@list');
+    Route::get('read', 'Api\ReligionController@read');
+    Route::put('update', 'Api\ReligionController@update');
+    Route::delete('delete', 'Api\ReligionController@delete');
+});
