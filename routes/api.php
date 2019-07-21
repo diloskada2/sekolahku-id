@@ -32,3 +32,12 @@ Route::group(['prefix' => 'religion'], function () {
     Route::put('update', 'Api\ReligionController@update');
     Route::delete('delete', 'Api\ReligionController@delete');
 });
+
+
+Route::group(['prefix' => 'staff'], function() {
+    Route::post('create', 'Api\StaffController@create');
+    Route::get('list', 'Api\StaffController@list');
+    Route::get('read', 'Api\StaffController@read');
+    Route::put('update', 'Api\StaffController@update');
+    Route::delete('delete', 'Api\StaffController@delete');
+});
