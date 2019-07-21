@@ -30,9 +30,6 @@ class StudentController extends Controller
 
             // YANG INI PAKE QUERY BUILDER ADA DI DALAM MODEL RELIGION
             $data = Student::readData($request->id);
-
-            // YANG INI PAKE ELOQUENT            
-
             $response = [
                 "success" => true,
                 "data" => $data,
