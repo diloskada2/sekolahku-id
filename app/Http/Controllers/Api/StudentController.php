@@ -136,9 +136,13 @@ class StudentController extends Controller
                 'birth_date' => 'required',
                 'blood_type' => 'required',
                 'address' => 'required',
-                'class_id' => 'required',
-                'student_track' => 'required',
-                'religion_id' => 'required'
+                'class_id' => 'nullable',
+                'student_track_id' => 'nullable',
+                'extracurricular1_id' => 'nullable',
+                'extracurricular2_id' => 'nullable',
+                'extracurricular3_id' => 'nullable',
+                'extracurricular4_id' => 'nullable',
+                'religion_id' => 'nullable'
             ]);
             if ($validator->fails()) {
                 $response = [
