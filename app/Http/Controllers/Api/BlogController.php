@@ -30,7 +30,7 @@ class BlogController extends Controller
                 return response()->json($response, 400);
             }
 
-            // get data with eloquent
+            // create data with eloquent
             $blog = Blog::create($request->all());
 
             // success response
