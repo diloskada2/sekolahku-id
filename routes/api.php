@@ -41,3 +41,26 @@ Route::group(['prefix' => 'staff'], function() {
     Route::put('update', 'Api\StaffController@update');
     Route::delete('delete', 'Api\StaffController@delete');
 });
+Route::group(['prefix' => 'blog'], function () {
+    Route::post('create', 'Api\BlogController@create');
+    Route::get('list', 'Api\BlogController@list');
+    Route::get('read', 'Api\BlogController@read');
+    Route::put('update', 'Api\BlogController@update');
+    Route::delete('delete', 'Api\BlogController@delete');
+});
+
+Route::group(['prefix' => 'event'], function () {
+    Route::post('create', 'Api\EventController@create');
+    Route::get('list', 'Api\EventController@list');
+    Route::get('read', 'Api\EventController@read');
+    Route::put('update', 'Api\EventController@update');
+    Route::delete('delete', 'Api\EventController@delete');
+});
+
+Route::group(['prefix' => 'courses'], function () {
+    Route::post('create', 'Api\CoursesController@create');
+    Route::get('list', 'Api\CoursesController@list');
+    Route::get('read', 'Api\CoursesController@read');
+    Route::put('update', 'Api\CoursesController@update');
+    Route::delete('delete', 'Api\CoursesController@delete');
+});
