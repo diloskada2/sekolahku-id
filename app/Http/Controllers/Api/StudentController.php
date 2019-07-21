@@ -56,8 +56,8 @@ class StudentController extends Controller
         try {
             $validator = \Validator::make($request->all(), [
                 'name' => 'required',
-                'nisn' => 'required',
-                'nis' => 'required',
+                'nisn' => 'required|unique:students',
+                'nis' => 'required|unique:students',
                 'birth_date' => 'required',
                 'blood_type' => 'required',
                 'address' => 'required',
