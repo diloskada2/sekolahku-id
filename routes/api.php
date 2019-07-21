@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function() {
+Route::get('/', function () {
     return response()->json("Sekolahku API", 200);
 });
 
@@ -33,8 +33,15 @@ Route::group(['prefix' => 'religion'], function () {
     Route::delete('delete', 'Api\ReligionController@delete');
 });
 
+Route::group(['prefix' => 'student'], function () {
+    Route::post('create', 'Api\StudentController@create');
+    Route::get('list', 'Api\StudentController@list');
+    Route::get('read', 'Api\StudentController@read');
+    Route::put('update', 'Api\StudentController@update');
+    Route::delete('delete', 'Api\StudentController@delete');
+});
 
-Route::group(['prefix' => 'staff'], function() {
+Route::group(['prefix' => 'staff'], function () {
     Route::post('create', 'Api\StaffController@create');
     Route::get('list', 'Api\StaffController@list');
     Route::get('read', 'Api\StaffController@read');
