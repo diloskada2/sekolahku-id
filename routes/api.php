@@ -33,6 +33,14 @@ Route::group(['prefix' => 'religion'], function () {
     Route::delete('delete', 'Api\ReligionController@delete');
 });
 
+
+Route::group(['prefix' => 'staff'], function() {
+    Route::post('create', 'Api\StaffController@create');
+    Route::get('list', 'Api\StaffController@list');
+    Route::get('read', 'Api\StaffController@read');
+    Route::put('update', 'Api\StaffController@update');
+    Route::delete('delete', 'Api\StaffController@delete');
+});
 Route::group(['prefix' => 'blog'], function () {
     Route::post('create', 'Api\BlogController@create');
     Route::get('list', 'Api\BlogController@list');
