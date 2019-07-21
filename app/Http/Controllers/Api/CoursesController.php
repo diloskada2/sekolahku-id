@@ -4,17 +4,16 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Religion;
+use App\Courses;
 
-class ReligionController extends Controller
+class CoursesController extends Controller
 {
-    function create(Request $request)
-    {
+    function create(Request $request) {
         try {
             $validator = \Validator::make($request->all(), [
-                'religion_name' => 'required|unique:religions,religion_name'
+                'course_name' => 'required|unique:courses,course_name'
             ]);
-            if ($validator->fails()) {
+            if($validator->fails()) {
                 $response = [
                     "success" => false,
                     "message" => $validator->errors()
@@ -23,11 +22,11 @@ class ReligionController extends Controller
                 return response()->json($response, 400);
             }
 
-            $religion = Religion::create($request->all());
+            $courses = Courses::create($request->all());
 
             $response = [
                 "success" => true,
-                "data" => $religion
+                "data" => $courses
             ];
 
             return response()->json($response, 200);
@@ -41,19 +40,13 @@ class ReligionController extends Controller
         }
     }
 
-    function list(Request $request)
-    {
+    function list(Request $request) {
         try {
-            // YANG INI PAKE QUERY BUILDER ADA DI DALAM MODEL RELIGION
-            $data = Religion::getData($request);
-
-            // YANG INI PAKE ELOQUENT
-            $data2 = Religion::all();
+            $data = Courses::getData($request);
 
             $response = [
                 "success" => true,
                 "data" => $data,
-                "data2" => $data2
             ];
 
             return response()->json($response, 200);
@@ -67,13 +60,12 @@ class ReligionController extends Controller
         }
     }
 
-    function read(Request $request)
-    {
+    function read(Request $request) {
         try {
             $validator = \Validator::make($request->all(), [
-                'id' => 'required|exists:religions,id'
+                'id' => 'required|exists:courses,id'
             ]);
-            if ($validator->fails()) {
+            if($validator->fails()) {
                 $response = [
                     "success" => false,
                     "message" => $validator->errors()
@@ -82,16 +74,10 @@ class ReligionController extends Controller
                 return response()->json($response, 400);
             }
 
-            // YANG INI PAKE QUERY BUILDER ADA DI DALAM MODEL RELIGION
-            $data = Religion::readData($request->id);
-
-            // YANG INI PAKE ELOQUENT
-            $data2 = Religion::where('id', $request->id)->first();
-
+            $data = Courses::readData($request->id);
             $response = [
                 "success" => true,
                 "data" => $data,
-                "data2" => $data2
             ];
 
             return response()->json($response, 200);
@@ -105,14 +91,13 @@ class ReligionController extends Controller
         }
     }
 
-    function update(Request $request)
-    {
+    function update(Request $request) {
         try {
             $validator = \Validator::make($request->all(), [
-                'id' => 'required|exists:religions,id',
-                'religion_name' => 'required',
+                'id' => 'required|exists:courses,id',
+                'course_name' => 'required',
             ]);
-            if ($validator->fails()) {
+            if($validator->fails()) {
                 $response = [
                     "success" => false,
                     "message" => $validator->errors()
@@ -121,12 +106,12 @@ class ReligionController extends Controller
                 return response()->json($response, 400);
             }
 
-            $religion = Religion::where('id', $request->id)->first();
-            $religion->update($request->all());
+            $courses = Courses::where('id', $request->id)->first();
+            $courses->update($request->all());
 
             $response = [
                 "success" => true,
-                "data" => $religion
+                "data" => $courses
             ];
 
             return response()->json($response, 200);
@@ -140,13 +125,12 @@ class ReligionController extends Controller
         }
     }
 
-    function delete(Request $request)
-    {
+    function delete(Request $request) {
         try {
             $validator = \Validator::make($request->all(), [
-                'id' => 'required|exists:religions,id'
+                'id' => 'required|exists:courses,id'
             ]);
-            if ($validator->fails()) {
+            if($validator->fails()) {
                 $response = [
                     "success" => false,
                     "message" => $validator->errors()
@@ -155,12 +139,12 @@ class ReligionController extends Controller
                 return response()->json($response, 400);
             }
 
-            $religion = Religion::where('id', $request->id)->first();
-            $religion->delete();
+            $courses = Courses::where('id', $request->id)->first();
+            $courses->delete();
 
             $response = [
                 "success" => true,
-                "message" => "Religion deleted successfully"
+                "message" => "Delete Berhasil"
             ];
 
             return response()->json($response, 200);
@@ -173,4 +157,5 @@ class ReligionController extends Controller
             return response()->json($response, 500);
         }
     }
+    
 }
