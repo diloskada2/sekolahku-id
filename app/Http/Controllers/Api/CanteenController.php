@@ -13,7 +13,7 @@ class CanteenController extends Controller
         try {
             // validate
             $validator = \Validator::make($request->all(), [
-                'name'     => 'required',
+                'name'     => 'required|unique:canteens,name',
                 'owner'   => 'required',
             ]);
 
