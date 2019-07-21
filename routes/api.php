@@ -48,3 +48,11 @@ Route::group(['prefix' => 'event'], function () {
     Route::put('update', 'Api\EventController@update');
     Route::delete('delete', 'Api\EventController@delete');
 });
+
+Route::group(['prefix' => 'building'], function () {
+    Route::post('create', 'Api\BuildingController@create');
+    Route::get('list', 'Api\BuildingController@list');
+    Route::get('read', 'Api\BuildingController@read');
+    Route::put('update', 'Api\BuildingController@update');
+    Route::delete('delete', 'Api\BuildingController@delete');
+});
