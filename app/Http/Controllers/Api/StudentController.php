@@ -2,76 +2,22 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Student;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Religion;
 
-class ReligionController extends Controller
+class StudentController extends Controller
 {
-    function create(Request $request)
-    {
-        try {
-            $validator = \Validator::make($request->all(), [
-                'religion_name' => 'required|unique:religions,religion_name'
-            ]);
-            if ($validator->fails()) {
-                $response = [
-                    "success" => false,
-                    "message" => $validator->errors()
-                ];
-
-                return response()->json($response, 400);
-            }
-
-            $religion = Religion::create($request->all());
-
-            $response = [
-                "success" => true,
-                "data" => $religion
-            ];
-
-            return response()->json($response, 200);
-        } catch (\Exception $error) {
-            $response = [
-                "success" => false,
-                "message" => $error->getMessage()
-            ];
-
-            return response()->json($response, 500);
-        }
-    }
-
-    function list(Request $request)
-    {
-        try {
-            // YANG INI PAKE QUERY BUILDER ADA DI DALAM MODEL RELIGION
-            $data = Religion::getData($request);
-
-            // YANG INI PAKE ELOQUENT
-            $data2 = Religion::all();
-
-            $response = [
-                "success" => true,
-                "data" => $data,
-                "data2" => $data2
-            ];
-
-            return response()->json($response, 200);
-        } catch (\Exception $error) {
-            $response = [
-                "success" => false,
-                "message" => $error->getMessage()
-            ];
-
-            return response()->json($response, 500);
-        }
-    }
-
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     function read(Request $request)
     {
         try {
             $validator = \Validator::make($request->all(), [
-                'id' => 'required|exists:religions,id'
+                'id' => 'required|exists:students,id'
             ]);
             if ($validator->fails()) {
                 $response = [
@@ -83,15 +29,10 @@ class ReligionController extends Controller
             }
 
             // YANG INI PAKE QUERY BUILDER ADA DI DALAM MODEL RELIGION
-            $data = Religion::readData($request->id);
-
-            // YANG INI PAKE ELOQUENT
-            $data2 = Religion::where('id', $request->id)->first();
-
+            $data = Student::readData($request->id);
             $response = [
                 "success" => true,
                 "data" => $data,
-                "data2" => $data2
             ];
 
             return response()->json($response, 200);
@@ -104,13 +45,104 @@ class ReligionController extends Controller
             return response()->json($response, 500);
         }
     }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    function create(Request $request)
+    {
+        try {
+            $validator = \Validator::make($request->all(), [
+                'name' => 'required',
+                'nisn' => 'required|unique:students',
+                'nis' => 'required|unique:students',
+                'birth_date' => 'required',
+                'blood_type' => 'required',
+                'address' => 'required',
+            ]);
+            if ($validator->fails()) {
+                $response = [
+                    "success" => false,
+                    "message" => $validator->errors()
+                ];
+                return response()->json($response, 400);
+            }
+
+            $student = Student::create($request->all());
+
+            $response = [
+                "success" => true,
+                "message" => $student
+            ];
+
+            return response()->json($response, 200);
+        } catch (\Exception $error) {
+            $response = [
+                "success" => false,
+                "message" => $error->getMessage()
+            ];
+
+            return response()->json($response, 500);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Student  $student
+     * @return \Illuminate\Http\Response
+     */
+    function list(Request $request)
+    {
+        try {
+            $data = Student::getData($request);
+
+
+            $response = [
+                "success" => true,
+                "data" => $data,
+            ];
+
+            return response()->json($response, 200);
+        } catch (\Exception $error) {
+            $response = [
+                "success" => false,
+                "message" => $error->getMessage()
+            ];
+
+            return response()->json($response, 500);
+        }
+    }
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Student  $student
+     * @return \Illuminate\Http\Response
+     */
 
     function update(Request $request)
     {
         try {
             $validator = \Validator::make($request->all(), [
-                'id' => 'required|exists:religions,id',
-                'religion_name' => 'required',
+                'id' => 'required|exists:students,id',
+                'name' => 'required',
+                'nisn' => 'required',
+                'nis' => 'required',
+                'birth_date' => 'required',
+                'blood_type' => 'required',
+                'address' => 'required',
+                'class_id' => 'nullable',
+                'student_track_id' => 'nullable',
+                'extracurricular1_id' => 'nullable',
+                'extracurricular2_id' => 'nullable',
+                'extracurricular3_id' => 'nullable',
+                'extracurricular4_id' => 'nullable',
+                'religion_id' => 'nullable'
             ]);
             if ($validator->fails()) {
                 $response = [
@@ -121,12 +153,12 @@ class ReligionController extends Controller
                 return response()->json($response, 400);
             }
 
-            $religion = Religion::where('id', $request->id)->first();
-            $religion->update($request->all());
+            $student = Student::where('id', $request->id)->first();
+            $student->update($request->all());
 
             $response = [
                 "success" => true,
-                "data" => $religion
+                "data" => $student
             ];
 
             return response()->json($response, 200);
@@ -140,11 +172,17 @@ class ReligionController extends Controller
         }
     }
 
-    function delete(Request $request)
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Student  $student
+     * @return \Illuminate\Http\Response
+     */
+    public function delete(Request $request)
     {
         try {
             $validator = \Validator::make($request->all(), [
-                'id' => 'required|exists:religions,id'
+                'id' => 'required'
             ]);
             if ($validator->fails()) {
                 $response = [
@@ -155,12 +193,12 @@ class ReligionController extends Controller
                 return response()->json($response, 400);
             }
 
-            $religion = Religion::where('id', $request->id)->first();
-            $religion->delete();
+            $student = Student::where('id', $request->id)->first();
+            $student->delete();
 
             $response = [
                 "success" => true,
-                "message" => "Religion deleted successfully"
+                "message" => "student deleted successfully"
             ];
 
             return response()->json($response, 200);
