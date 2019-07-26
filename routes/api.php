@@ -64,3 +64,11 @@ Route::group(['prefix' => 'courses'], function () {
     Route::put('update', 'Api\CoursesController@update');
     Route::delete('delete', 'Api\CoursesController@delete');
 });
+
+Route::group(['prefix' => 'teacher'], function () {
+    Route::post('create', 'Api\TeacherController@create');
+    Route::get('list', 'Api\TeacherController@list');
+    Route::get('read', 'Api\TeacherController@read');
+    Route::put('update', 'Api\TeacherController@update');
+    Route::delete('delete', 'Api\TeacherController@delete');
+});
