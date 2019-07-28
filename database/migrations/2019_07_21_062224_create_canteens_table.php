@@ -15,8 +15,8 @@ class CreateCanteensTable extends Migration
     {
         Schema::create('canteens', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('name')->unique();
-            $table->text('owner');
+            $table->string('name')->unique();
+            $table->string('owner');
             $table->timestamps();
         });
     }
