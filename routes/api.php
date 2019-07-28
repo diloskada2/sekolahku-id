@@ -64,6 +64,14 @@ Route::group(['prefix' => 'event'], function () {
     Route::delete('delete', 'Api\EventController@delete');
 });
 
+Route::group(['prefix' => 'canteen'], function () {
+    Route::post('create', 'Api\CanteenController@create');
+    Route::get('list', 'Api\CanteenController@list');
+    Route::get('read', 'Api\CanteenController@read');
+    Route::put('update', 'Api\CanteenController@update');
+    Route::delete('delete', 'Api\CanteenController@delete');
+});
+
 Route::group(['prefix' => 'courses'], function () {
     Route::post('create', 'Api\CoursesController@create');
     Route::get('list', 'Api\CoursesController@list');
