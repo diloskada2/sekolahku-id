@@ -79,3 +79,11 @@ Route::group(['prefix' => 'courses'], function () {
     Route::put('update', 'Api\CoursesController@update');
     Route::delete('delete', 'Api\CoursesController@delete');
 });
+
+Route::group(['prefix' => 'student_trak'], function () {
+    Route::post('create', 'Api\StudentTrack@create');
+    Route::get('list', 'Api\StudentTrack@list');
+    Route::get('read', 'Api\StudentTrack@read');
+    Route::put('update', 'Api\StudentTrack@update');
+    Route::delete('delete', 'Api\StudentTrack@delete');
+});
