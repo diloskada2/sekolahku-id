@@ -65,6 +65,52 @@ class ClassesController extends Controller
         return response()->json($response, 200);
     }
 
+    function read(Request $request) {
+        // error handling
+        try {
+            // validate
+            $validator = \Validator::make($request->all(), [
+                'id' => 'required|exists:classes,id'
+            ]);
+
+            // validator error handling
+            if ($validator->fails()) {
+                // validator error response
+                $response = [
+                    "success" => false,
+                    "message" => $validator->errors()
+                ];
+
+                // validator error result
+                return response()->json($response, 400);
+
+            }
+
+            // get data with eloquent
+            $classes = Classes::where('id', $request->id)->first();
+
+            // success response
+            $response = [
+                "success" => true,
+                "classes" => $classes,
+            ];
+
+            // success result
+            return response()->json($response, 200);
+
+        } catch (\Exception $error) {
+            // error response
+            $response = [
+                "success" => false,
+                "message" => $error->getMessage()
+            ];
+
+            // error result
+            return response()->json($response, 500);
+
+        }
+    }
+
     function update(Request $request) {
         // error handling
         try {
