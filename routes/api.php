@@ -81,9 +81,9 @@ Route::group(['prefix' => 'courses'], function () {
 });
 
 Route::group(['prefix' => 'student_trak'], function () {
-    Route::post('create', 'Api\StudentTrack@create');
-    Route::get('list', 'Api\StudentTrack@list');
-    Route::get('read', 'Api\StudentTrack@read');
-    Route::put('update', 'Api\StudentTrack@update');
-    Route::delete('delete', 'Api\StudentTrack@delete');
+    Route::post('create', 'Api\StudentTrackController@create');
+    Route::get('list', 'Api\StudentTrackController@list');
+    Route::get('read', 'Api\StudentTrackController@read');
+    Route::put('update', 'Api\StudentTrackController@update');
+    Route::delete('delete', 'Api\StudentTrackController@delete');
 });

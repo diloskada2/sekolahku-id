@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\StudentTrack;
 use Illuminate\Http\Request;
@@ -27,12 +27,7 @@ class StudentTrackController extends Controller
     {
         try {
             $validator = \Validator::make($request->all(), [
-                'name' => 'required',
-                'nisn' => 'required|unique:students',
-                'nis' => 'required|unique:students',
-                'birth_date' => 'required',
-                'blood_type' => 'required',
-                'address' => 'required',
+                'track_name' => 'required'
             ]);
             if ($validator->fails()) {
                 $response = [
@@ -42,7 +37,7 @@ class StudentTrackController extends Controller
                 return response()->json($response, 400);
             }
 
-            $student = Student::create($request->all());
+            $student = StudentTrack::create($request->all());
 
             $response = [
                 "success" => true,
