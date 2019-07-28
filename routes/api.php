@@ -71,3 +71,11 @@ Route::group(['prefix' => 'courses'], function () {
     Route::put('update', 'Api\CoursesController@update');
     Route::delete('delete', 'Api\CoursesController@delete');
 });
+
+Route::group(['prefix' => 'student-councils'], function () {
+    Route::post('create', 'Api\StudentCouncilsController@create');
+    Route::get('list', 'Api\StudentCouncilsController@list');
+    Route::get('read', 'Api\StudentCouncilsController@read');
+    Route::put('update', 'Api\StudentCouncilsController@update');
+    Route::delete('delete', 'Api\StudentCouncilsController@delete');
+});
