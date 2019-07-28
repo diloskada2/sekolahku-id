@@ -87,3 +87,11 @@ Route::group(['prefix' => 'courses'], function () {
     Route::put('update', 'Api\CoursesController@update');
     Route::delete('delete', 'Api\CoursesController@delete');
 });
+
+Route::group(['prefix' => 'book'], function () {
+    Route::post('create', 'Api\BookController@create');
+    Route::get('list', 'Api\BookController@list');
+    Route::get('read', 'Api\BookController@read');
+    Route::put('update', 'Api\BookController@update');
+    Route::delete('delete', 'Api\BookController@delete');
+});
