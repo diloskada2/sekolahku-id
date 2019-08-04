@@ -11,7 +11,7 @@ class BlogCategoryController extends Controller
     function create(Request $request) {
         try {
             $validator = \Validator::make($request->all(), [
-                'blog_category_name' => 'required',
+                'blog_category_name' => 'required|unique:religions,religion_name',
                 'blog_category_description' => 'required'
             ]);
             if($validator->fails()) {
