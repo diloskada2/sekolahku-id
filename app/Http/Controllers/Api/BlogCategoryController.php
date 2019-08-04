@@ -4,17 +4,17 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Religion;
+use App\BlogCategory;
 
-class ReligionController extends Controller
+class BlogCategoryController extends Controller
 {
-    function create(Request $request)
-    {
+    function create(Request $request) {
         try {
             $validator = \Validator::make($request->all(), [
-                'religion_name' => 'required|unique:religions,religion_name'
+                'blog_category_name' => 'required|unique:religions,religion_name',
+                'blog_category_description' => 'required'
             ]);
-            if ($validator->fails()) {
+            if($validator->fails()) {
                 $response = [
                     "success" => false,
                     "message" => $validator->errors()
@@ -23,11 +23,11 @@ class ReligionController extends Controller
                 return response()->json($response, 400);
             }
 
-            $religion = Religion::create($request->all());
+            $blog_category = BlogCategory::create($request->all());
 
             $response = [
                 "success" => true,
-                "data" => $religion
+                "data" => $blog_category
             ];
 
             return response()->json($response, 200);
@@ -41,19 +41,14 @@ class ReligionController extends Controller
         }
     }
 
-    function list(Request $request)
-    {
+    function list(Request $request) {
         try {
             // YANG INI PAKE QUERY BUILDER ADA DI DALAM MODEL RELIGION
-            $data = Religion::getData($request);
-
-            // YANG INI PAKE ELOQUENT
-            $data2 = Religion::all();
+            $data = BlogCategory::getData($request);
 
             $response = [
                 "success" => true,
-                "data" => $data,
-                "data2" => $data2
+                "data" => $data
             ];
 
             return response()->json($response, 200);
@@ -67,13 +62,12 @@ class ReligionController extends Controller
         }
     }
 
-    function read(Request $request)
-    {
+    function read(Request $request) {
         try {
             $validator = \Validator::make($request->all(), [
-                'id' => 'required|exists:religions,id'
+                'id' => 'required|exists:blog_categories,id'
             ]);
-            if ($validator->fails()) {
+            if($validator->fails()) {
                 $response = [
                     "success" => false,
                     "message" => $validator->errors()
@@ -83,15 +77,15 @@ class ReligionController extends Controller
             }
 
             // YANG INI PAKE QUERY BUILDER ADA DI DALAM MODEL RELIGION
-            $data = Religion::readData($request->id);
+            $data = BlogCategory::readData($request->id);
 
             // YANG INI PAKE ELOQUENT
-            $data2 = Religion::where('id', $request->id)->first();
+            // $data2 = Religion::where('id', $request->id)->first();
 
             $response = [
                 "success" => true,
-                "data" => $data,
-                "data2" => $data2
+                "data" => $data
+                // "data2" => $data2
             ];
 
             return response()->json($response, 200);
@@ -105,14 +99,14 @@ class ReligionController extends Controller
         }
     }
 
-    function update(Request $request)
-    {
+    function update(Request $request) {
         try {
             $validator = \Validator::make($request->all(), [
-                'id' => 'required|exists:religions,id',
-                'religion_name' => 'required',
+                'id' => 'required|exists:blog_categories,id',
+                'blog_category_name' => 'required',
+                'blog_category_description' => 'required'
             ]);
-            if ($validator->fails()) {
+            if($validator->fails()) {
                 $response = [
                     "success" => false,
                     "message" => $validator->errors()
@@ -121,12 +115,12 @@ class ReligionController extends Controller
                 return response()->json($response, 400);
             }
 
-            $religion = Religion::where('id', $request->id)->first();
-            $religion->update($request->all());
+            $blog_category = BlogCategory::where('id', $request->id)->first();
+            $blog_category->update($request->all());
 
             $response = [
                 "success" => true,
-                "data" => $religion
+                "data" => $blog_category
             ];
 
             return response()->json($response, 200);
@@ -140,13 +134,12 @@ class ReligionController extends Controller
         }
     }
 
-    function delete(Request $request)
-    {
+    function delete(Request $request) {
         try {
             $validator = \Validator::make($request->all(), [
-                'id' => 'required|exists:religions,id'
+                'id' => 'required|exists:blog_categories,id'
             ]);
-            if ($validator->fails()) {
+            if($validator->fails()) {
                 $response = [
                     "success" => false,
                     "message" => $validator->errors()
@@ -155,12 +148,12 @@ class ReligionController extends Controller
                 return response()->json($response, 400);
             }
 
-            $religion = Religion::where('id', $request->id)->first();
-            $religion->delete();
+            $blog_category = BlogCategory::where('id', $request->id)->first();
+            $blog_category->delete();
 
             $response = [
                 "success" => true,
-                "message" => "Religion deleted successfully"
+                "message" => "Blog Category deleted successfully"
             ];
 
             return response()->json($response, 200);
@@ -172,5 +165,5 @@ class ReligionController extends Controller
 
             return response()->json($response, 500);
         }
-    }
+    }   
 }

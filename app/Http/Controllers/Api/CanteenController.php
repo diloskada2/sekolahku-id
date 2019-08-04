@@ -4,172 +4,223 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Religion;
+use App\Canteen;
 
-class ReligionController extends Controller
+class CanteenController extends Controller
 {
-    function create(Request $request)
-    {
+    public function create(request $request) {
+        // error handling
         try {
+            // validate
             $validator = \Validator::make($request->all(), [
-                'religion_name' => 'required|unique:religions,religion_name'
+                'name'     => 'required|unique:canteens,name',
+                'owner'   => 'required',
             ]);
+
+            // validator error handling
             if ($validator->fails()) {
+                // validator error response
                 $response = [
                     "success" => false,
                     "message" => $validator->errors()
                 ];
 
+                // validator error result
                 return response()->json($response, 400);
             }
 
-            $religion = Religion::create($request->all());
+            // create data with eloquent
+            $canteen = Canteen::create($request->all());
 
+            // success response
             $response = [
-                "success" => true,
-                "data" => $religion
+                "success"   => true,
+                "data"      => $canteen
             ];
 
+            // result
             return response()->json($response, 200);
+
         } catch (\Exception $error) {
+            // error response
             $response = [
                 "success" => false,
                 "message" => $error->getMessage()
             ];
 
+            // result
             return response()->json($response, 500);
+
         }
-    }
+    }    
 
-    function list(Request $request)
-    {
+    public function list(request $request) {
+        // error handling
         try {
-            // YANG INI PAKE QUERY BUILDER ADA DI DALAM MODEL RELIGION
-            $data = Religion::getData($request);
+            // get data with eloquent
+            $canteen = Canteen::all();
 
-            // YANG INI PAKE ELOQUENT
-            $data2 = Religion::all();
-
+            // success responce
             $response = [
-                "success" => true,
-                "data" => $data,
-                "data2" => $data2
+                "success"   => true,
+                "blog"      => $canteen
             ];
 
+            // result
             return response()->json($response, 200);
+
         } catch (\Exception $error) {
+            // error response
             $response = [
                 "success" => false,
                 "message" => $error->getMessage()
             ];
 
+            // result
             return response()->json($response, 500);
+            
         }
     }
 
-    function read(Request $request)
-    {
+    function read(Request $request) {
+        // error handling
         try {
+            // validate
             $validator = \Validator::make($request->all(), [
-                'id' => 'required|exists:religions,id'
+                'id' => 'required|exists:canteens,id'
             ]);
+
+            // validator error handling
             if ($validator->fails()) {
+                // validator error response
                 $response = [
                     "success" => false,
                     "message" => $validator->errors()
                 ];
 
+                // validator error result
                 return response()->json($response, 400);
+
             }
 
-            // YANG INI PAKE QUERY BUILDER ADA DI DALAM MODEL RELIGION
-            $data = Religion::readData($request->id);
+            // get data with eloquent
+            $canteen = Canteen::where('id', $request->id)->first();
 
-            // YANG INI PAKE ELOQUENT
-            $data2 = Religion::where('id', $request->id)->first();
-
+            // success response
             $response = [
                 "success" => true,
-                "data" => $data,
-                "data2" => $data2
+                "blog" => $canteen,
             ];
 
+            // success result
             return response()->json($response, 200);
+
         } catch (\Exception $error) {
+            // error response
             $response = [
                 "success" => false,
                 "message" => $error->getMessage()
             ];
 
+            // error result
             return response()->json($response, 500);
+
         }
     }
 
-    function update(Request $request)
-    {
+    function update(Request $request) {
+        // error handling
         try {
+            // validate
             $validator = \Validator::make($request->all(), [
-                'id' => 'required|exists:religions,id',
-                'religion_name' => 'required',
+                'id'    => 'required|exists:canteens,id',
+                'name'  => 'required',
+                'owner' => 'required',
             ]);
+
+            // validator error handling
             if ($validator->fails()) {
+                // validator error response
                 $response = [
                     "success" => false,
                     "message" => $validator->errors()
                 ];
 
+                // validator error result
                 return response()->json($response, 400);
             }
 
-            $religion = Religion::where('id', $request->id)->first();
-            $religion->update($request->all());
+            // get data with eloquent
+            $canteen = Canteen::where('id', $request->id)->first();
 
+            // update data with eloquent
+            $canteen->update($request->all());
+
+            // success response
             $response = [
                 "success" => true,
-                "data" => $religion
+                "data" => $canteen
             ];
 
+            // success response
             return response()->json($response, 200);
+            
         } catch (\Exception $error) {
+            // error response
             $response = [
                 "success" => false,
                 "message" => $error->getMessage()
             ];
 
+            // error result
             return response()->json($response, 500);
         }
     }
 
-    function delete(Request $request)
-    {
+    function delete(Request $request) {
+        // error handling
         try {
+            // validate
             $validator = \Validator::make($request->all(), [
-                'id' => 'required|exists:religions,id'
+                'id' => 'required|exists:canteens,id'
             ]);
+
+            // validator error handling 
             if ($validator->fails()) {
+                // validator error response
                 $response = [
                     "success" => false,
                     "message" => $validator->errors()
                 ];
 
+                // validator error result
                 return response()->json($response, 400);
+
             }
 
-            $religion = Religion::where('id', $request->id)->first();
-            $religion->delete();
+            // get data with eloquent
+            $canteen = Canteen::where('id', $request->id)->first();
 
+            // delete data with eloquent
+            $canteen->delete();
+
+            // success response
             $response = [
                 "success" => true,
-                "message" => "Religion deleted successfully"
+                "message" => "Blog deleted successfully"
             ];
 
+            // success result
             return response()->json($response, 200);
+
         } catch (\Exception $error) {
+            // error response
             $response = [
                 "success" => false,
                 "message" => $error->getMessage()
             ];
 
+            // error result
             return response()->json($response, 500);
         }
     }

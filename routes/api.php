@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function() {
+Route::get('/', function () {
     return response()->json("Sekolahku API", 200);
 });
 
@@ -33,6 +33,30 @@ Route::group(['prefix' => 'religion'], function () {
     Route::delete('delete', 'Api\ReligionController@delete');
 });
 
+Route::group(['prefix' => 'student'], function () {
+    Route::post('create', 'Api\StudentController@create');
+    Route::get('list', 'Api\StudentController@list');
+    Route::get('read', 'Api\StudentController@read');
+    Route::put('update', 'Api\StudentController@update');
+    Route::delete('delete', 'Api\StudentController@delete');
+});
+
+Route::group(['prefix' => 'staff'], function () {
+    Route::post('create', 'Api\StaffController@create');
+    Route::get('list', 'Api\StaffController@list');
+    Route::get('read', 'Api\StaffController@read');
+    Route::put('update', 'Api\StaffController@update');
+    Route::delete('delete', 'Api\StaffController@delete');
+});
+
+Route::group(['prefix' => 'blogCategory'], function () {
+    Route::post('create', 'Api\BlogCategoryController@create');
+    Route::get('list', 'Api\BlogCategoryController@list');
+    Route::get('read', 'Api\BlogCategoryController@read');
+    Route::put('update', 'Api\BlogCategoryController@update');
+    Route::delete('delete', 'Api\BlogCategoryController@delete');
+});
+
 Route::group(['prefix' => 'blog'], function () {
     Route::post('create', 'Api\BlogController@create');
     Route::get('list', 'Api\BlogController@list');
@@ -49,6 +73,21 @@ Route::group(['prefix' => 'event'], function () {
     Route::delete('delete', 'Api\EventController@delete');
 });
 
+Route::group(['prefix' => 'class'], function () {
+    Route::post('create', 'Api\ClassesController@create');
+    Route::get('list', 'Api\ClassesController@list');
+    Route::get('read', 'Api\ClassesController@read');
+    Route::put('update', 'Api\ClassesController@update');
+    Route::delete('delete', 'Api\ClassesController@delete');
+});
+Route::group(['prefix' => 'canteen'], function () {
+    Route::post('create', 'Api\CanteenController@create');
+    Route::get('list', 'Api\CanteenController@list');
+    Route::get('read', 'Api\CanteenController@read');
+    Route::put('update', 'Api\CanteenController@update');
+    Route::delete('delete', 'Api\CanteenController@delete');
+});
+
 Route::group(['prefix' => 'courses'], function () {
     Route::post('create', 'Api\CoursesController@create');
     Route::get('list', 'Api\CoursesController@list');
@@ -63,4 +102,11 @@ Route::group(['prefix' => 'extracurricular'], function () {
     Route::get('read', 'Api\ExtracurricularController@read');
     Route::put('update', 'Api\ExtracurricularController@update');
     Route::delete('delete', 'Api\ExtracurricularController@delete');
+});
+Route::group(['prefix' => 'student-councils'], function () {
+    Route::post('create', 'Api\StudentCouncilsController@create');
+    Route::get('list', 'Api\StudentCouncilsController@list');
+    Route::get('read', 'Api\StudentCouncilsController@read');
+    Route::put('update', 'Api\StudentCouncilsController@update');
+    Route::delete('delete', 'Api\StudentCouncilsController@delete');
 });
