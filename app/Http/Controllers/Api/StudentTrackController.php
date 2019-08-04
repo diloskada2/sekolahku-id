@@ -8,22 +8,7 @@ use App\Http\Controllers\Controller;
 
 class StudentTrackController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
+    function create(Request $request)
     {
         try {
             $validator = \Validator::make($request->all(), [
@@ -55,59 +40,127 @@ class StudentTrackController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    function list(Request $request)
     {
-        //
+        try {
+            $data = StudentTrack::getData($request);
+
+
+            $response = [
+                "success" => true,
+                "data" => $data,
+            ];
+
+            return response()->json($response, 200);
+        } catch (\Exception $error) {
+            $response = [
+                "success" => false,
+                "message" => $error->getMessage()
+            ];
+
+            return response()->json($response, 500);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\StudentTrack  $studentTrack
-     * @return \Illuminate\Http\Response
-     */
-    public function show(StudentTrack $studentTrack)
+    function read(Request $request)
     {
-        //
+        try {
+            $validator = \Validator::make($request->all(), [
+                'id' => 'required|exists:student_tracks,id'
+            ]);
+            if ($validator->fails()) {
+                $response = [
+                    "success" => false,
+                    "message" => $validator->errors()
+                ];
+
+                return response()->json($response, 400);
+            }
+
+            // YANG INI PAKE QUERY BUILDER ADA DI DALAM MODEL RELIGION
+            $data = StudentTrack::readData($request->id);
+            $response = [
+                "success" => true,
+                "data" => $data,
+            ];
+
+            return response()->json($response, 200);
+        } catch (\Exception $error) {
+            $response = [
+                "success" => false,
+                "message" => $error->getMessage()
+            ];
+
+            return response()->json($response, 500);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\StudentTrack  $studentTrack
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(StudentTrack $studentTrack)
+    function update(Request $request)
     {
-        //
+        try {
+            $validator = \Validator::make($request->all(), [
+                'id' => 'required|exists:student_tracks,id',
+                'track_name' => 'required'
+            ]);
+            if ($validator->fails()) {
+                $response = [
+                    "success" => false,
+                    "message" => $validator->errors()
+                ];
+
+                return response()->json($response, 400);
+            }
+
+            $student = StudentTrack::where('id', $request->id)->first();
+            $student->update($request->all());
+
+            $response = [
+                "success" => true,
+                "data" => $student
+            ];
+
+            return response()->json($response, 200);
+        } catch (\Exception $error) {
+            $response = [
+                "success" => false,
+                "message" => $error->getMessage()
+            ];
+
+            return response()->json($response, 500);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\StudentTrack  $studentTrack
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, StudentTrack $studentTrack)
+    public function delete(Request $request)
     {
-        //
-    }
+        try {
+            $validator = \Validator::make($request->all(), [
+                'id' => 'required'
+            ]);
+            if ($validator->fails()) {
+                $response = [
+                    "success" => false,
+                    "message" => $validator->errors()
+                ];
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\StudentTrack  $studentTrack
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(StudentTrack $studentTrack)
-    {
-        //
+                return response()->json($response, 400);
+            }
+
+            $student = StudentTrack::where('id', $request->id)->first();
+            $student->delete();
+
+            $response = [
+                "success" => true,
+                "message" => "student deleted successfully"
+            ];
+
+            return response()->json($response, 200);
+        } catch (\Exception $error) {
+            $response = [
+                "success" => false,
+                "message" => $error->getMessage()
+            ];
+
+            return response()->json($response, 500);
+        }
     }
 }

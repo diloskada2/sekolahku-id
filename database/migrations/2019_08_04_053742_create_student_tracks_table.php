@@ -16,7 +16,7 @@ class CreateStudentTracksTable extends Migration
         Schema::create('student_tracks', function (Blueprint $table) {
             $table->increments('id');
             $table->string('track_name');
-            $table->string('structure_id')->unsigned();
+            $table->integer('strucktur_id')->unsigned()->nullable();
             $table->timestamps();
         });
     }
