@@ -56,3 +56,11 @@ Route::group(['prefix' => 'courses'], function () {
     Route::put('update', 'Api\CoursesController@update');
     Route::delete('delete', 'Api\CoursesController@delete');
 });
+
+Route::group(['prefix' => 'extracurricular'], function () {
+    Route::post('create', 'Api\ExtracurricularController@create');
+    Route::get('list', 'Api\ExtracurricularController@list');
+    Route::get('read', 'Api\CoursesController@read');
+    Route::put('update', 'Api\ExtracurricularController@update');
+    Route::delete('delete', 'Api\ExtracurricularController@delete');
+});
