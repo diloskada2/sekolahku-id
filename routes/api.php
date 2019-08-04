@@ -49,6 +49,14 @@ Route::group(['prefix' => 'staff'], function () {
     Route::delete('delete', 'Api\StaffController@delete');
 });
 
+Route::group(['prefix' => 'blogCategory'], function () {
+    Route::post('create', 'Api\BlogCategoryController@create');
+    Route::get('list', 'Api\BlogCategoryController@list');
+    Route::get('read', 'Api\BlogCategoryController@read');
+    Route::put('update', 'Api\BlogCategoryController@update');
+    Route::delete('delete', 'Api\BlogCategoryController@delete');
+});
+
 Route::group(['prefix' => 'blog'], function () {
     Route::post('create', 'Api\BlogController@create');
     Route::get('list', 'Api\BlogController@list');
