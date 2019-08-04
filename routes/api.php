@@ -60,7 +60,7 @@ Route::group(['prefix' => 'courses'], function () {
 Route::group(['prefix' => 'extracurricular'], function () {
     Route::post('create', 'Api\ExtracurricularController@create');
     Route::get('list', 'Api\ExtracurricularController@list');
-    Route::get('read', 'Api\CoursesController@read');
+    Route::get('read', 'Api\ExtracurricularController@read');
     Route::put('update', 'Api\ExtracurricularController@update');
     Route::delete('delete', 'Api\ExtracurricularController@delete');
 });
