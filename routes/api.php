@@ -88,10 +88,10 @@ Route::group(['prefix' => 'courses'], function () {
     Route::delete('delete', 'Api\CoursesController@delete');
 });
 
-Route::group(['prefix' => 'book'], function () {
-    Route::post('create', 'Api\BookController@create');
-    Route::get('list', 'Api\BookController@list');
-    Route::get('read', 'Api\BookController@read');
-    Route::put('update', 'Api\BookController@update');
-    Route::delete('delete', 'Api\BookController@delete');
+Route::group(['prefix' => 'book-category'], function () {
+    Route::post('create', 'Api\BookCategoryController@create');
+    Route::get('list', 'Api\BookCategoryController@list');
+    Route::get('read', 'Api\BookCategoryController@read');
+    Route::put('update', 'Api\BookCategoryController@update');
+    Route::delete('delete', 'Api\BookCategoryController@delete');
 });
