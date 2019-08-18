@@ -96,6 +96,13 @@ Route::group(['prefix' => 'courses'], function () {
     Route::delete('delete', 'Api\CoursesController@delete');
 });
 
+Route::group(['prefix' => 'extracurricular'], function () {
+    Route::post('create', 'Api\ExtracurricularController@create');
+    Route::get('list', 'Api\ExtracurricularController@list');
+    Route::get('read', 'Api\ExtracurricularController@read');
+    Route::put('update', 'Api\ExtracurricularController@update');
+    Route::delete('delete', 'Api\ExtracurricularController@delete');
+});
 Route::group(['prefix' => 'student-councils'], function () {
     Route::post('create', 'Api\StudentCouncilsController@create');
     Route::get('list', 'Api\StudentCouncilsController@list');
