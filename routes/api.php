@@ -80,12 +80,21 @@ Route::group(['prefix' => 'class'], function () {
     Route::put('update', 'Api\ClassesController@update');
     Route::delete('delete', 'Api\ClassesController@delete');
 });
+
 Route::group(['prefix' => 'canteen'], function () {
     Route::post('create', 'Api\CanteenController@create');
     Route::get('list', 'Api\CanteenController@list');
     Route::get('read', 'Api\CanteenController@read');
     Route::put('update', 'Api\CanteenController@update');
     Route::delete('delete', 'Api\CanteenController@delete');
+});
+
+Route::group(['prefix' => 'building'], function () {
+    Route::post('create', 'Api\BuildingController@create');
+    Route::get('list', 'Api\BuildingController@list');
+    Route::get('read', 'Api\BuildingController@read');
+    Route::put('update', 'Api\BuildingController@update');
+    Route::delete('delete', 'Api\BuildingController@delete');
 });
 
 Route::group(['prefix' => 'courses'], function () {
