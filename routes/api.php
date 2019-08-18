@@ -128,3 +128,11 @@ Route::group(['prefix' => 'student_trak'], function () {
     Route::put('update', 'Api\StudentTrackController@update');
     Route::delete('delete', 'Api\StudentTrackController@delete');
 });
+
+Route::group(['prefix' => 'book'], function () {
+    Route::post('create', 'Api\BookController@create');
+    Route::get('list', 'Api\BookController@list');
+    Route::get('read', 'Api\BookController@read');
+    Route::put('update', 'Api\BookController@update');
+    Route::delete('delete', 'Api\BookController@delete');
+});
