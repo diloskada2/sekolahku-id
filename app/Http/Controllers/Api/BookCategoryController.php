@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Book;
+use App\BookCategory;
 
-class BookController extends Controller
+class BookCategoryController extends Controller
 {
         function create(Request $request) {
             try {
@@ -23,7 +23,7 @@ class BookController extends Controller
                     return response()->json($response, 400);
                 }
     
-                $book = Book::create($request->all());
+                $book = BookCategory::create($request->all());
     
                 $response = [
                     "success" => true,
@@ -43,7 +43,7 @@ class BookController extends Controller
         function list(Request $request) {
             try {
                 //Ini Query Builder
-                $data = Book::getData($request);
+                $data = BookCategory::getData($request);
     
                 //Ini Pake Eloquent
                 //$data2 = Staff::all();
@@ -66,7 +66,7 @@ class BookController extends Controller
         function read(Request $request) {
             try {
                 $validator = \Validator::make($request->all(), [
-                    'id' => 'required|exists:books,id'
+                    'id' => 'required|exists:book_categories,id'
                 ]);
     
                 if($validator->fails()){
@@ -79,7 +79,7 @@ class BookController extends Controller
                 }
     
                 // Query Builder
-                $data = Book::readData($request->id);
+                $data = BookCategory::readData($request->id);
     
                 // Eloquent
                 // $data2 = Staff::where('id', $request->id)->first();
@@ -103,7 +103,7 @@ class BookController extends Controller
         function update(Request $request) {
             try {
                 $validator = \Validator::make($request->all(), [
-                    'id' => 'required|exists:books,id',
+                    'id' => 'required|exists:book_categories,id',
                     'book_category_name' => 'required',
                     'book_category_desc' => 'required',    
                 ]);
@@ -117,7 +117,7 @@ class BookController extends Controller
                 return response()->json($response, 400);
             }
     
-            $book = Book::where('id', $request->id)->first();
+            $book = BookCategory::where('id', $request->id)->first();
             $book->update($request->all());
     
             $response = [
@@ -139,7 +139,7 @@ class BookController extends Controller
       function delete(Request $request) {
           try {
               $validator = \Validator::make($request->all(), [
-                  'id' => 'required|exists:books,id'
+                  'id' => 'required|exists:book_categories,id'
               ]);
               if($validator->fails()) {
                   $response = [
@@ -150,7 +150,7 @@ class BookController extends Controller
                   return response()->json($response, 400);
               }
     
-              $book = Book::where('id', $request->id)->first();
+              $book = BookCategory::where('id', $request->id)->first();
               $book->delete();
     
               $response = [
