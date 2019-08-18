@@ -103,10 +103,19 @@ Route::group(['prefix' => 'extracurricular'], function () {
     Route::put('update', 'Api\ExtracurricularController@update');
     Route::delete('delete', 'Api\ExtracurricularController@delete');
 });
+
 Route::group(['prefix' => 'student-councils'], function () {
     Route::post('create', 'Api\StudentCouncilsController@create');
     Route::get('list', 'Api\StudentCouncilsController@list');
     Route::get('read', 'Api\StudentCouncilsController@read');
     Route::put('update', 'Api\StudentCouncilsController@update');
     Route::delete('delete', 'Api\StudentCouncilsController@delete');
+});
+
+Route::group(['prefix' => 'student_trak'], function () {
+    Route::post('create', 'Api\StudentTrackController@create');
+    Route::get('list', 'Api\StudentTrackController@list');
+    Route::get('read', 'Api\StudentTrackController@read');
+    Route::put('update', 'Api\StudentTrackController@update');
+    Route::delete('delete', 'Api\StudentTrackController@delete');
 });
