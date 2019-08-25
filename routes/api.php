@@ -168,3 +168,11 @@ Route::group(['prefix' => 'author'], function () {
     Route::put('update', 'Api\AuthorController@update');
     Route::delete('delete', 'Api\AuthorController@delete');
 });
+
+Route::group(['prefix' => 'school_structures'], function () {
+    Route::post('create', 'Api\SchoolStructuresController@create');
+    Route::get('list', 'Api\SchoolStructuresController@list');
+    Route::get('read', 'Api\SchoolStructuresController@read');
+    Route::put('update', 'Api\SchoolStructuresController@update');
+    Route::delete('delete', 'Api\SchoolStructuresController@delete');
+});
