@@ -4,15 +4,15 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\BlogCategory;
+use App\Shelf;
 
-class BlogCategoryController extends Controller
+class ShelfController extends Controller
 {
     function create(Request $request) {
         try {
             $validator = \Validator::make($request->all(), [
-                'blog_category_name' => 'required|unique:blog_categories,blog_category_name',
-                'blog_category_description' => 'required'
+                'shelf_code' => 'required|unique:shelfs,shelf_code',
+                'position' => 'required|unique:shelfs,position'
             ]);
             if($validator->fails()) {
                 $response = [
@@ -23,11 +23,11 @@ class BlogCategoryController extends Controller
                 return response()->json($response, 400);
             }
 
-            $blog_category = BlogCategory::create($request->all());
+            $shelf = ShelfCategory::create($request->all());
 
             $response = [
                 "success" => true,
-                "data" => $blog_category
+                "data" => $shelf
             ];
 
             return response()->json($response, 200);
@@ -44,7 +44,7 @@ class BlogCategoryController extends Controller
     function list(Request $request) {
         try {
             // YANG INI PAKE QUERY BUILDER ADA DI DALAM MODEL RELIGION
-            $data = BlogCategory::getData($request);
+            $data = ShelfCategory::getData($request);
 
             $response = [
                 "success" => true,
@@ -65,7 +65,7 @@ class BlogCategoryController extends Controller
     function read(Request $request) {
         try {
             $validator = \Validator::make($request->all(), [
-                'id' => 'required|exists:blog_categories,id'
+                'id' => 'required|exists:shelf,id'
             ]);
             if($validator->fails()) {
                 $response = [
@@ -77,7 +77,7 @@ class BlogCategoryController extends Controller
             }
 
             // YANG INI PAKE QUERY BUILDER ADA DI DALAM MODEL RELIGION
-            $data = BlogCategory::readData($request->id);
+            $data = ShelfCategory::readData($request->id);
 
             // YANG INI PAKE ELOQUENT
             // $data2 = Religion::where('id', $request->id)->first();
@@ -102,9 +102,9 @@ class BlogCategoryController extends Controller
     function update(Request $request) {
         try {
             $validator = \Validator::make($request->all(), [
-                'id' => 'required|exists:blog_categories,id',
-                'blog_category_name' => 'required',
-                'blog_category_description' => 'required'
+                'id' => 'required|exists:shelfs,id',
+                'shelf_code' => 'required',
+                'position' => 'required'
             ]);
             if($validator->fails()) {
                 $response = [
@@ -115,12 +115,12 @@ class BlogCategoryController extends Controller
                 return response()->json($response, 400);
             }
 
-            $blog_category = BlogCategory::where('id', $request->id)->first();
-            $blog_category->update($request->all());
+            $shelf = ShelfCategory::where('id', $request->id)->first();
+            $shelf->update($request->all());
 
             $response = [
                 "success" => true,
-                "data" => $blog_category
+                "data" => $shelf
             ];
 
             return response()->json($response, 200);
@@ -137,7 +137,7 @@ class BlogCategoryController extends Controller
     function delete(Request $request) {
         try {
             $validator = \Validator::make($request->all(), [
-                'id' => 'required|exists:blog_categories,id'
+                'id' => 'required|exists:shelf,id'
             ]);
             if($validator->fails()) {
                 $response = [
@@ -148,12 +148,12 @@ class BlogCategoryController extends Controller
                 return response()->json($response, 400);
             }
 
-            $blog_category = BlogCategory::where('id', $request->id)->first();
-            $blog_category->delete();
+            $shelf = ShelfCategory::where('id', $request->id)->first();
+            $shelf->delete();
 
             $response = [
                 "success" => true,
-                "message" => "Blog Category deleted successfully"
+                "message" => "deleted successfully"
             ];
 
             return response()->json($response, 200);
