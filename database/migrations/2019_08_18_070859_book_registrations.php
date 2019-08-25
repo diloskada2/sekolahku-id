@@ -14,8 +14,8 @@ class BookRegistrations extends Migration
     public function up()
     {
         Schema::create('book_registrations', function (Blueprint $table) {
-            $table->increments('no_reg');
-            $table->integer('id_book');
+            $table->increments('id');
+            $table->string('id_book');
             $table->integer('shelf_code');
             $table->timestamps();
         });

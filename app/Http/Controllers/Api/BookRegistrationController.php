@@ -88,7 +88,7 @@ class BookRegistrationController extends Controller
         try {
             // validate
             $validator = \Validator::make($request->all(), [
-                'no_reg' => 'required|exists:book_registrations,no_reg'
+                'id' => 'required|exists:book_registrations,id'
             ]);
 
             // validator error handling
@@ -105,7 +105,7 @@ class BookRegistrationController extends Controller
             }
 
             // get data with eloquent
-            $bookregistration = BookRegistration::where('no_reg', $request->id)->first();
+            $bookregistration = BookRegistration::where('id', $request->id)->first();
 
             // success response
             $response = [
@@ -134,9 +134,9 @@ class BookRegistrationController extends Controller
         try {
             // validate
             $validator = \Validator::make($request->all(), [
-                'no_reg' => 'required|exists:book_registrations,no_reg',
-                'id_book' => 'required',
-                'shelf_code' => 'required',
+                'id'        => 'required|exists:book_registrations,id',
+                'id_book'       => 'required',
+                'shelf_code'    => 'required',
             ]);
 
             // validator error handling
@@ -152,7 +152,7 @@ class BookRegistrationController extends Controller
             }
 
             // get data with eloquent
-            $bookregistration = BookRegistration::where('no_reg', $request->id)->first();
+            $bookregistration = BookRegistration::where('id', $request->id)->first();
 
             // update data with eloquent
             $bookregistration->update($request->all());
@@ -183,7 +183,7 @@ class BookRegistrationController extends Controller
         try {
             // validate
             $validator = \Validator::make($request->all(), [
-                'no_reg' => 'required|exists:book_registrations,no_reg'
+                'id' => 'required|exists:book_registrations,id'
             ]);
 
             // validator error handling 
@@ -200,7 +200,7 @@ class BookRegistrationController extends Controller
             }
 
             // get data with eloquent
-            $bookregistration = BookRegistration::where('no_reg', $request->id)->first();
+            $bookregistration = BookRegistration::where('id', $request->id)->first();
 
             // delete data with eloquent
             $bookregistration->delete();

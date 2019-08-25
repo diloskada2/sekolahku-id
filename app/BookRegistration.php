@@ -8,6 +8,6 @@ class BookRegistration extends Model
 {
     protected $fillable = [
         'id_book',
-        'shelf_code',
+        'shelf_code'
     ];
 }
