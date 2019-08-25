@@ -207,3 +207,11 @@ Route::group(['prefix' => 'teacher'], function () {
     Route::put('update', 'Api\TeacherController@update');
     Route::delete('delete', 'Api\TeacherController@delete');
 });
+
+Route::group(['prefix' => 'school'], function () {
+    Route::post('create', 'Api\SchoolController@create');
+    Route::get('list', 'Api\SchoolController@list');
+    Route::get('read', 'Api\SchoolController@read');
+    Route::put('update', 'Api\SchoolController@update');
+    Route::delete('delete', 'Api\SchoolController@delete');
+});
