@@ -103,3 +103,27 @@ Route::group(['prefix' => 'student-councils'], function () {
     Route::put('update', 'Api\StudentCouncilsController@update');
     Route::delete('delete', 'Api\StudentCouncilsController@delete');
 });
+
+Route::group(['prefix' => 'student_trak'], function () {
+    Route::post('create', 'Api\StudentTrackController@create');
+    Route::get('list', 'Api\StudentTrackController@list');
+    Route::get('read', 'Api\StudentTrackController@read');
+    Route::put('update', 'Api\StudentTrackController@update');
+    Route::delete('delete', 'Api\StudentTrackController@delete');
+});
+
+Route::group(['prefix' => 'book'], function () {
+    Route::post('create', 'Api\BookController@create');
+    Route::get('list', 'Api\BookController@list');
+    Route::get('read', 'Api\BookController@read');
+    Route::put('update', 'Api\BookController@update');
+    Route::delete('delete', 'Api\BookController@delete');
+});
+
+Route::group(['prefix' => 'author'], function () {
+    Route::post('create', 'Api\AuthorController@create');
+    Route::get('list', 'Api\AuthorController@list');
+    Route::get('read', 'Api\AuthorController@read');
+    Route::put('update', 'Api\AuthorController@update');
+    Route::delete('delete', 'Api\AuthorController@delete');
+});
