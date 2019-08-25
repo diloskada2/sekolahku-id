@@ -145,6 +145,13 @@ Route::group(['prefix' => 'book'], function () {
     Route::delete('delete', 'Api\BookController@delete');
 });
 
+Route::group(['prefix' => 'book_reg'], function () {
+    Route::post('create', 'Api\BookRegistrationController@create');
+    Route::get('list', 'Api\BookRegistrationController@list');
+    Route::get('read', 'Api\BookRegistrationController@read');
+    Route::put('update', 'Api\BookRegistrationController@update');
+    Route::delete('delete', 'Api\BookRegistrationController@delete');
+});
 Route::group(['prefix' => 'borrowing'], function () {
     Route::post('create', 'Api\BorrowingController@create');
     Route::get('list', 'Api\BorrowingController@list');
