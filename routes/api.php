@@ -105,6 +105,14 @@ Route::group(['prefix' => 'courses'], function () {
     Route::delete('delete', 'Api\CoursesController@delete');
 });
 
+Route::group(['prefix' => 'book-category'], function () {
+    Route::post('create', 'Api\BookCategoryController@create');
+    Route::get('list', 'Api\BookCategoryController@list');
+    Route::get('read', 'Api\BookCategoryController@read');
+    Route::put('update', 'Api\BookCategoryController@update');
+    Route::delete('delete', 'Api\BookCategoryController@delete');
+});
+
 Route::group(['prefix' => 'extracurricular'], function () {
     Route::post('create', 'Api\ExtracurricularController@create');
     Route::get('list', 'Api\ExtracurricularController@list');
@@ -143,4 +151,59 @@ Route::group(['prefix' => 'book_reg'], function () {
     Route::get('read', 'Api\BookRegistrationController@read');
     Route::put('update', 'Api\BookRegistrationController@update');
     Route::delete('delete', 'Api\BookRegistrationController@delete');
+});
+Route::group(['prefix' => 'borrowing'], function () {
+    Route::post('create', 'Api\BorrowingController@create');
+    Route::get('list', 'Api\BorrowingController@list');
+    Route::get('read', 'Api\BorrowingController@read');
+    Route::put('update', 'Api\BorrowingController@update');
+    Route::delete('delete', 'Api\BorrowingController@delete');
+});
+
+Route::group(['prefix' => 'criticism-suggestion'], function () {
+    Route::post('create', 'Api\CriticismCategoriesController@create');
+    Route::get('list', 'Api\CriticismCategoriesController@list');
+    Route::get('read', 'Api\CriticismCategoriesController@read');
+    Route::put('update', 'Api\CriticismCategoriesController@update');
+    Route::delete('delete', 'Api\CriticismCategoriesController@delete');
+});
+
+Route::group(['prefix' => 'author'], function () {
+    Route::post('create', 'Api\AuthorController@create');
+    Route::get('list', 'Api\AuthorController@list');
+    Route::get('read', 'Api\AuthorController@read');
+    Route::put('update', 'Api\AuthorController@update');
+    Route::delete('delete', 'Api\AuthorController@delete');
+});
+
+Route::group(['prefix' => 'school_structures'], function () {
+    Route::post('create', 'Api\SchoolStructuresController@create');
+    Route::get('list', 'Api\SchoolStructuresController@list');
+    Route::get('read', 'Api\SchoolStructuresController@read');
+    Route::put('update', 'Api\SchoolStructuresController@update');
+    Route::delete('delete', 'Api\SchoolStructuresController@delete');
+});
+
+Route::group(['prefix' => 'member'], function () {
+    Route::post('create', 'Api\MemberController@create');
+    Route::get('list', 'Api\MemberController@list');
+    Route::get('read', 'Api\MemberController@read');
+    Route::put('update', 'Api\MemberController@update');
+    Route::delete('delete', 'Api\MemberController@delete');
+});
+
+Route::group(['prefix' => 'publisher'], function () {
+    Route::post('create', 'Api\PublisherController@create');
+    Route::get('list', 'Api\PublisherController@list');
+    Route::get('read', 'Api\PublisherController@read');
+    Route::put('update', 'Api\PublisherController@update');
+    Route::delete('delete', 'Api\PublisherController@delete');
+});
+
+Route::group(['prefix' => 'teacher'], function () {
+    Route::post('create', 'Api\TeacherController@create');
+    Route::get('list', 'Api\TeacherController@list');
+    Route::get('read', 'Api\TeacherController@read');
+    Route::put('update', 'Api\TeacherController@update');
+    Route::delete('delete', 'Api\TeacherController@delete');
 });

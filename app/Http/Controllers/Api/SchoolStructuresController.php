@@ -4,30 +4,31 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\BlogCategory;
+use App\SchoolStructures;
 
-class BlogCategoryController extends Controller
+class SchoolStructuresController extends Controller
 {
-    function create(Request $request) {
+    function create(Request $request)
+    {
         try {
             $validator = \Validator::make($request->all(), [
-                'blog_category_name' => 'required|unique:blog_categories,blog_category_name',
-                'blog_category_description' => 'required'
+                'structure_name' => 'required',
+                'structure_pic' => 'required',
+                'school_id' => 'required'
             ]);
-            if($validator->fails()) {
+            if ($validator->fails()) {
                 $response = [
                     "success" => false,
                     "message" => $validator->errors()
                 ];
-
                 return response()->json($response, 400);
             }
 
-            $blog_category = BlogCategory::create($request->all());
+            $school_structures = SchoolStructures::create($request->all());
 
             $response = [
                 "success" => true,
-                "data" => $blog_category
+                "message" => $school_structures
             ];
 
             return response()->json($response, 200);
@@ -41,14 +42,48 @@ class BlogCategoryController extends Controller
         }
     }
 
-    function list(Request $request) {
+    function list(Request $request)
+    {
         try {
+            $data = SchoolStructures::getData($request);
+
+
+            $response = [
+                "success" => true,
+                "data" => $data,
+            ];
+
+            return response()->json($response, 200);
+        } catch (\Exception $error) {
+            $response = [
+                "success" => false,
+                "message" => $error->getMessage()
+            ];
+
+            return response()->json($response, 500);
+        }
+    }
+
+    function read(Request $request)
+    {
+        try {
+            $validator = \Validator::make($request->all(), [
+                'id' => 'required|exists:school_structures,id'
+            ]);
+            if ($validator->fails()) {
+                $response = [
+                    "success" => false,
+                    "message" => $validator->errors()
+                ];
+
+                return response()->json($response, 400);
+            }
+
             // YANG INI PAKE QUERY BUILDER ADA DI DALAM MODEL RELIGION
-            $data = BlogCategory::getData($request);
-
+            $data = SchoolStructures::readData($request->id);
             $response = [
                 "success" => true,
-                "data" => $data
+                "data" => $data,
             ];
 
             return response()->json($response, 200);
@@ -62,12 +97,16 @@ class BlogCategoryController extends Controller
         }
     }
 
-    function read(Request $request) {
+    function update(Request $request)
+    {
         try {
             $validator = \Validator::make($request->all(), [
-                'id' => 'required|exists:blog_categories,id'
+                'id' => 'required|exists:school_structures,id',
+                'structure_name' => 'required',
+                'structure_pic' => 'required',
+                'school_id' => 'required'
             ]);
-            if($validator->fails()) {
+            if ($validator->fails()) {
                 $response = [
                     "success" => false,
                     "message" => $validator->errors()
@@ -76,16 +115,12 @@ class BlogCategoryController extends Controller
                 return response()->json($response, 400);
             }
 
-            // YANG INI PAKE QUERY BUILDER ADA DI DALAM MODEL RELIGION
-            $data = BlogCategory::readData($request->id);
-
-            // YANG INI PAKE ELOQUENT
-            // $data2 = Religion::where('id', $request->id)->first();
+            $school_structures = SchoolStructures::where('id', $request->id)->first();
+            $school_structures->update($request->all());
 
             $response = [
                 "success" => true,
-                "data" => $data
-                // "data2" => $data2
+                "data" => $school_structures
             ];
 
             return response()->json($response, 200);
@@ -99,14 +134,13 @@ class BlogCategoryController extends Controller
         }
     }
 
-    function update(Request $request) {
+    public function delete(Request $request)
+    {
         try {
             $validator = \Validator::make($request->all(), [
-                'id' => 'required|exists:blog_categories,id',
-                'blog_category_name' => 'required',
-                'blog_category_description' => 'required'
+                'id' => 'required'
             ]);
-            if($validator->fails()) {
+            if ($validator->fails()) {
                 $response = [
                     "success" => false,
                     "message" => $validator->errors()
@@ -115,12 +149,12 @@ class BlogCategoryController extends Controller
                 return response()->json($response, 400);
             }
 
-            $blog_category = BlogCategory::where('id', $request->id)->first();
-            $blog_category->update($request->all());
+            $school_structures = SchoolStructures::where('id', $request->id)->first();
+            $school_structures->delete();
 
             $response = [
                 "success" => true,
-                "data" => $blog_category
+                "message" => "school structures deleted successfully"
             ];
 
             return response()->json($response, 200);
@@ -133,37 +167,4 @@ class BlogCategoryController extends Controller
             return response()->json($response, 500);
         }
     }
-
-    function delete(Request $request) {
-        try {
-            $validator = \Validator::make($request->all(), [
-                'id' => 'required|exists:blog_categories,id'
-            ]);
-            if($validator->fails()) {
-                $response = [
-                    "success" => false,
-                    "message" => $validator->errors()
-                ];
-
-                return response()->json($response, 400);
-            }
-
-            $blog_category = BlogCategory::where('id', $request->id)->first();
-            $blog_category->delete();
-
-            $response = [
-                "success" => true,
-                "message" => "Blog Category deleted successfully"
-            ];
-
-            return response()->json($response, 200);
-        } catch (\Exception $error) {
-            $response = [
-                "success" => false,
-                "message" => $error->getMessage()
-            ];
-
-            return response()->json($response, 500);
-        }
-    }   
 }

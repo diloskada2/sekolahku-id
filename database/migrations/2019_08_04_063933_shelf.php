@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Book extends Migration
+class Shelf extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class Book extends Migration
      */
     public function up()
     {
-        schema::create('Books', function (Blueprint $table) {
+        Schema::create('shelfs', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('book_category_name');
-            $table->string('book_category_desc');
+            $table->string('shelf_code', 20)->unique();
+            $table->string('position')->unique();
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class Book extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Books');
+        //
     }
 }

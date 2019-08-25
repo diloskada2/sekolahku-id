@@ -4,15 +4,18 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\BlogCategory;
 
-class BlogCategoryController extends Controller
+class BorrowingController extends Controller
 {
     function create(Request $request) {
         try {
             $validator = \Validator::make($request->all(), [
-                'blog_category_name' => 'required|unique:blog_categories,blog_category_name',
-                'blog_category_description' => 'required'
+                'transaction_code' => 'required|unique:borrowing_books,transaction_code',
+                'member_id' => 'required',
+                'book_id' => 'required',
+                'borrowed_date' => 'required',
+                'return_date' => 'required',
+                'total_fine' => 'required'
             ]);
             if($validator->fails()) {
                 $response = [
@@ -23,11 +26,11 @@ class BlogCategoryController extends Controller
                 return response()->json($response, 400);
             }
 
-            $blog_category = BlogCategory::create($request->all());
+            $BorrowingBook = BorrowingBook::create($request->all());
 
             $response = [
-                "success" => true,
-                "data" => $blog_category
+                "success" =>true,
+                "data" => $BorrowingBook
             ];
 
             return response()->json($response, 200);
@@ -36,15 +39,15 @@ class BlogCategoryController extends Controller
                 "success" => false,
                 "message" => $error->getMessage()
             ];
-
+    
             return response()->json($response, 500);
         }
     }
 
     function list(Request $request) {
         try {
-            // YANG INI PAKE QUERY BUILDER ADA DI DALAM MODEL RELIGION
-            $data = BlogCategory::getData($request);
+            // use query builder at model
+            $data = BorrowingBook::getData($request);
 
             $response = [
                 "success" => true,
@@ -57,44 +60,40 @@ class BlogCategoryController extends Controller
                 "success" => false,
                 "message" => $error->getMessage()
             ];
-
+    
             return response()->json($response, 500);
         }
     }
 
-    function read(Request $request) {
+    function read(Request $request){
         try {
             $validator = \Validator::make($request->all(), [
-                'id' => 'required|exists:blog_categories,id'
+                'id' => 'required|exists:borrowing_books,id'
             ]);
+
             if($validator->fails()) {
                 $response = [
                     "success" => false,
                     "message" => $validator->errors()
                 ];
-
-                return response()->json($response, 400);
             }
 
-            // YANG INI PAKE QUERY BUILDER ADA DI DALAM MODEL RELIGION
-            $data = BlogCategory::readData($request->id);
-
-            // YANG INI PAKE ELOQUENT
-            // $data2 = Religion::where('id', $request->id)->first();
+            //use query builder at model
+            $data = BorrowingBook::readData($request->id);
 
             $response = [
                 "success" => true,
                 "data" => $data
-                // "data2" => $data2
             ];
 
             return response()->json($response, 200);
+
         } catch (\Exception $error) {
             $response = [
                 "success" => false,
                 "message" => $error->getMessage()
             ];
-
+    
             return response()->json($response, 500);
         }
     }
@@ -102,10 +101,14 @@ class BlogCategoryController extends Controller
     function update(Request $request) {
         try {
             $validator = \Validator::make($request->all(), [
-                'id' => 'required|exists:blog_categories,id',
-                'blog_category_name' => 'required',
-                'blog_category_description' => 'required'
+                'transaction_code' => 'required|exists:borrowing_books,transaction_code',
+                'member_id' => 'required',
+                'book_id' => 'required',
+                'borrowed_date' => 'required',
+                'return_date' => 'required',
+                'total_fine' => 'required'
             ]);
+
             if($validator->fails()) {
                 $response = [
                     "success" => false,
@@ -115,21 +118,22 @@ class BlogCategoryController extends Controller
                 return response()->json($response, 400);
             }
 
-            $blog_category = BlogCategory::where('id', $request->id)->first();
-            $blog_category->update($request->all());
+            $BorrowingBook = BorrowingBook::where('transaction_code', $request->transaction_code)->first();
+            $BorrowingBook->update($request->all());
 
             $response = [
                 "success" => true,
-                "data" => $blog_category
+                "data" => $BorrowingBook
             ];
 
             return response()->json($response, 200);
+
         } catch (\Exception $error) {
             $response = [
                 "success" => false,
                 "message" => $error->getMessage()
             ];
-
+    
             return response()->json($response, 500);
         }
     }
@@ -137,8 +141,9 @@ class BlogCategoryController extends Controller
     function delete(Request $request) {
         try {
             $validator = \Validator::make($request->all(), [
-                'id' => 'required|exists:blog_categories,id'
+                'transaction_code' => 'required|exists:borrowing_books,transaction_code'
             ]);
+
             if($validator->fails()) {
                 $response = [
                     "success" => false,
@@ -146,14 +151,15 @@ class BlogCategoryController extends Controller
                 ];
 
                 return response()->json($response, 400);
+                
             }
 
-            $blog_category = BlogCategory::where('id', $request->id)->first();
-            $blog_category->delete();
+            $BorrowingBook = BorrowingBook::where('transaction_code', $request->transaction_code)->first();
+            $BorrowingBook->delete();
 
             $response = [
                 "success" => true,
-                "message" => "Blog Category deleted successfully"
+                "message" => "Borrowing Book Deleted Successfully"
             ];
 
             return response()->json($response, 200);
@@ -162,8 +168,10 @@ class BlogCategoryController extends Controller
                 "success" => false,
                 "message" => $error->getMessage()
             ];
-
+    
             return response()->json($response, 500);
         }
-    }   
+    }
+
 }
+

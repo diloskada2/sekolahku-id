@@ -4,17 +4,19 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\BlogCategory;
+use App\Member;
 
-class BlogCategoryController extends Controller
+class MemberController extends Controller
 {
-    function create(Request $request) {
+    public function create(Request $request) {
         try {
             $validator = \Validator::make($request->all(), [
-                'blog_category_name' => 'required|unique:blog_categories,blog_category_name',
-                'blog_category_description' => 'required'
+                'member_name'        => 'required',
+                'address'    => 'required',
+                'phone_number'     => 'required'
             ]);
-            if($validator->fails()) {
+
+            if ($validator->fails()) {
                 $response = [
                     "success" => false,
                     "message" => $validator->errors()
@@ -23,14 +25,15 @@ class BlogCategoryController extends Controller
                 return response()->json($response, 400);
             }
 
-            $blog_category = BlogCategory::create($request->all());
+            $member = Member::create($request->all());
 
             $response = [
-                "success" => true,
-                "data" => $blog_category
+                "success"   => true,
+                "data"      => $member
             ];
 
             return response()->json($response, 200);
+
         } catch (\Exception $error) {
             $response = [
                 "success" => false,
@@ -38,20 +41,21 @@ class BlogCategoryController extends Controller
             ];
 
             return response()->json($response, 500);
+
         }
     }
 
-    function list(Request $request) {
+    public function list(request $request) {
         try {
-            // YANG INI PAKE QUERY BUILDER ADA DI DALAM MODEL RELIGION
-            $data = BlogCategory::getData($request);
+            $member = Member::all();
 
             $response = [
-                "success" => true,
-                "data" => $data
+                "success"   => true,
+                "members"      => $member
             ];
 
             return response()->json($response, 200);
+
         } catch (\Exception $error) {
             $response = [
                 "success" => false,
@@ -59,36 +63,35 @@ class BlogCategoryController extends Controller
             ];
 
             return response()->json($response, 500);
+
         }
     }
 
     function read(Request $request) {
         try {
             $validator = \Validator::make($request->all(), [
-                'id' => 'required|exists:blog_categories,id'
+                'id' => 'required|exists:members,id'
             ]);
-            if($validator->fails()) {
+
+            if ($validator->fails()) {
                 $response = [
                     "success" => false,
                     "message" => $validator->errors()
                 ];
 
                 return response()->json($response, 400);
+
             }
 
-            // YANG INI PAKE QUERY BUILDER ADA DI DALAM MODEL RELIGION
-            $data = BlogCategory::readData($request->id);
-
-            // YANG INI PAKE ELOQUENT
-            // $data2 = Religion::where('id', $request->id)->first();
+            $member = Member::where('id', $request->id)->first();
 
             $response = [
                 "success" => true,
-                "data" => $data
-                // "data2" => $data2
+                "members" => $member,
             ];
 
             return response()->json($response, 200);
+
         } catch (\Exception $error) {
             $response = [
                 "success" => false,
@@ -96,17 +99,20 @@ class BlogCategoryController extends Controller
             ];
 
             return response()->json($response, 500);
+
         }
     }
 
     function update(Request $request) {
         try {
             $validator = \Validator::make($request->all(), [
-                'id' => 'required|exists:blog_categories,id',
-                'blog_category_name' => 'required',
-                'blog_category_description' => 'required'
+                'id' => 'required|exists:members,id',
+                'member_name'        => 'required',
+                'address'    => 'required',
+                'phone_number'     => 'required'
             ]);
-            if($validator->fails()) {
+
+            if ($validator->fails()) {
                 $response = [
                     "success" => false,
                     "message" => $validator->errors()
@@ -115,15 +121,17 @@ class BlogCategoryController extends Controller
                 return response()->json($response, 400);
             }
 
-            $blog_category = BlogCategory::where('id', $request->id)->first();
-            $blog_category->update($request->all());
+            $member = Member::where('id', $request->id)->first();
+
+            $member->update($request->all());
 
             $response = [
                 "success" => true,
-                "data" => $blog_category
+                "data" => $member
             ];
 
             return response()->json($response, 200);
+
         } catch (\Exception $error) {
             $response = [
                 "success" => false,
@@ -137,26 +145,30 @@ class BlogCategoryController extends Controller
     function delete(Request $request) {
         try {
             $validator = \Validator::make($request->all(), [
-                'id' => 'required|exists:blog_categories,id'
+                'id' => 'required|exists:members,id'
             ]);
-            if($validator->fails()) {
+
+            if ($validator->fails()) {
                 $response = [
                     "success" => false,
                     "message" => $validator->errors()
                 ];
 
                 return response()->json($response, 400);
+
             }
 
-            $blog_category = BlogCategory::where('id', $request->id)->first();
-            $blog_category->delete();
+            $member = Member::where('id', $request->id)->first();
+
+            $member->delete();
 
             $response = [
                 "success" => true,
-                "message" => "Blog Category deleted successfully"
+                "message" => "Member deleted successfully"
             ];
 
             return response()->json($response, 200);
+
         } catch (\Exception $error) {
             $response = [
                 "success" => false,
@@ -165,5 +177,5 @@ class BlogCategoryController extends Controller
 
             return response()->json($response, 500);
         }
-    }   
+    }
 }

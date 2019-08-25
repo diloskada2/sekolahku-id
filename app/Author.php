@@ -4,21 +4,20 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Book extends Model
+class Author extends Model
 {
     protected $guarded = [];
 
-    protected $table = 'books';
-
     static function getData($request) {
-        $query = "SELECT * FROM books";
+        $query = "SELECT * FROM authors";
 
         return \DB::select($query);
     }
 
     static function readData($id) {
-        $query = "SELECT * FROM Books AS b WHERE b.id = $id";
+        $query = "SELECT * FROM authors AS au WHERE au.id = $id";
 
         return \DB::select($query)[0];
     }
+
 }

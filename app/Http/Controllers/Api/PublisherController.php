@@ -4,15 +4,16 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\BlogCategory;
+use App\Publisher;
 
-class BlogCategoryController extends Controller
+class PublisherController extends Controller
 {
     function create(Request $request) {
         try {
             $validator = \Validator::make($request->all(), [
-                'blog_category_name' => 'required|unique:blog_categories,blog_category_name',
-                'blog_category_description' => 'required'
+                'publisher_name' => 'required',
+                'addres' => 'required',
+                'phone_number' => 'required'
             ]);
             if($validator->fails()) {
                 $response = [
@@ -23,11 +24,11 @@ class BlogCategoryController extends Controller
                 return response()->json($response, 400);
             }
 
-            $blog_category = BlogCategory::create($request->all());
+            $publisher = Publisher::create($request->all());
 
             $response = [
-                "success" => true,
-                "data" => $blog_category
+                "success" =>true,
+                "data" => $publisher
             ];
 
             return response()->json($response, 200);
@@ -36,15 +37,15 @@ class BlogCategoryController extends Controller
                 "success" => false,
                 "message" => $error->getMessage()
             ];
-
+    
             return response()->json($response, 500);
         }
     }
 
     function list(Request $request) {
         try {
-            // YANG INI PAKE QUERY BUILDER ADA DI DALAM MODEL RELIGION
-            $data = BlogCategory::getData($request);
+            // use query builder at model
+            $data = Publisher::getData($request);
 
             $response = [
                 "success" => true,
@@ -57,44 +58,40 @@ class BlogCategoryController extends Controller
                 "success" => false,
                 "message" => $error->getMessage()
             ];
-
+    
             return response()->json($response, 500);
         }
     }
 
-    function read(Request $request) {
+    function read(Request $request){
         try {
             $validator = \Validator::make($request->all(), [
-                'id' => 'required|exists:blog_categories,id'
+                'id' => 'required|exists:publishers,id'
             ]);
+
             if($validator->fails()) {
                 $response = [
                     "success" => false,
                     "message" => $validator->errors()
                 ];
-
-                return response()->json($response, 400);
             }
 
-            // YANG INI PAKE QUERY BUILDER ADA DI DALAM MODEL RELIGION
-            $data = BlogCategory::readData($request->id);
-
-            // YANG INI PAKE ELOQUENT
-            // $data2 = Religion::where('id', $request->id)->first();
+            //use query builder at model
+            $data = Publisher::readData($request->id);
 
             $response = [
                 "success" => true,
                 "data" => $data
-                // "data2" => $data2
             ];
 
             return response()->json($response, 200);
+
         } catch (\Exception $error) {
             $response = [
                 "success" => false,
                 "message" => $error->getMessage()
             ];
-
+    
             return response()->json($response, 500);
         }
     }
@@ -102,10 +99,12 @@ class BlogCategoryController extends Controller
     function update(Request $request) {
         try {
             $validator = \Validator::make($request->all(), [
-                'id' => 'required|exists:blog_categories,id',
-                'blog_category_name' => 'required',
-                'blog_category_description' => 'required'
+                'id' => 'required|exists:publishers,id',
+                'publisher_name' => 'required',
+                'addres' => 'required',
+                'phone_number' => 'required'
             ]);
+
             if($validator->fails()) {
                 $response = [
                     "success" => false,
@@ -115,21 +114,22 @@ class BlogCategoryController extends Controller
                 return response()->json($response, 400);
             }
 
-            $blog_category = BlogCategory::where('id', $request->id)->first();
-            $blog_category->update($request->all());
+            $publisher = Publisher::where('id', $request->id)->first();
+            $publisher->update($request->all());
 
             $response = [
                 "success" => true,
-                "data" => $blog_category
+                "data" => $publisher
             ];
 
             return response()->json($response, 200);
+
         } catch (\Exception $error) {
             $response = [
                 "success" => false,
                 "message" => $error->getMessage()
             ];
-
+    
             return response()->json($response, 500);
         }
     }
@@ -137,8 +137,9 @@ class BlogCategoryController extends Controller
     function delete(Request $request) {
         try {
             $validator = \Validator::make($request->all(), [
-                'id' => 'required|exists:blog_categories,id'
+                'id' => 'required|exists:publishers,id'
             ]);
+
             if($validator->fails()) {
                 $response = [
                     "success" => false,
@@ -146,14 +147,15 @@ class BlogCategoryController extends Controller
                 ];
 
                 return response()->json($response, 400);
+                
             }
 
-            $blog_category = BlogCategory::where('id', $request->id)->first();
-            $blog_category->delete();
+            $publisher = Publisher::where('id', $request->id)->first();
+            $publisher->delete();
 
             $response = [
                 "success" => true,
-                "message" => "Blog Category deleted successfully"
+                "message" => "Publisher Deleted Successfully"
             ];
 
             return response()->json($response, 200);
@@ -162,8 +164,8 @@ class BlogCategoryController extends Controller
                 "success" => false,
                 "message" => $error->getMessage()
             ];
-
+    
             return response()->json($response, 500);
         }
-    }   
+    }
 }
