@@ -184,3 +184,11 @@ Route::group(['prefix' => 'member'], function () {
     Route::put('update', 'Api\MemberController@update');
     Route::delete('delete', 'Api\MemberController@delete');
 });
+
+Route::group(['prefix' => 'publisher'], function () {
+    Route::post('create', 'Api\PublisherController@create');
+    Route::get('list', 'Api\PublisherController@list');
+    Route::get('read', 'Api\PublisherController@read');
+    Route::put('update', 'Api\PublisherController@update');
+    Route::delete('delete', 'Api\PublisherController@delete');
+});
