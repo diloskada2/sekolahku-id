@@ -160,3 +160,11 @@ Route::group(['prefix' => 'criticism-suggestion'], function () {
     Route::put('update', 'Api\CriticismCategoriesController@update');
     Route::delete('delete', 'Api\CriticismCategoriesController@delete');
 });
+
+Route::group(['prefix' => 'author'], function () {
+    Route::post('create', 'Api\AuthorController@create');
+    Route::get('list', 'Api\AuthorController@list');
+    Route::get('read', 'Api\AuthorController@read');
+    Route::put('update', 'Api\AuthorController@update');
+    Route::delete('delete', 'Api\AuthorController@delete');
+});
