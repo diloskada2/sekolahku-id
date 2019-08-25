@@ -176,3 +176,11 @@ Route::group(['prefix' => 'school_structures'], function () {
     Route::put('update', 'Api\SchoolStructuresController@update');
     Route::delete('delete', 'Api\SchoolStructuresController@delete');
 });
+
+Route::group(['prefix' => 'member'], function () {
+    Route::post('create', 'Api\MemberController@create');
+    Route::get('list', 'Api\MemberController@list');
+    Route::get('read', 'Api\MemberController@read');
+    Route::put('update', 'Api\MemberController@update');
+    Route::delete('delete', 'Api\MemberController@delete');
+});
