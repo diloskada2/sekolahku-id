@@ -17,7 +17,7 @@ class Author extends Migration
             $table->increments('id');
             $table->string('author_name');
             $table->string('address');
-            $table->increments('phone_number');
+            $table->string('phone_number');
             $table->timestamps();
         });
     }
