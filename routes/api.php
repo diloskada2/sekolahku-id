@@ -105,6 +105,14 @@ Route::group(['prefix' => 'courses'], function () {
     Route::delete('delete', 'Api\CoursesController@delete');
 });
 
+Route::group(['prefix' => 'book-category'], function () {
+    Route::post('create', 'Api\BookCategoryController@create');
+    Route::get('list', 'Api\BookCategoryController@list');
+    Route::get('read', 'Api\BookCategoryController@read');
+    Route::put('update', 'Api\BookCategoryController@update');
+    Route::delete('delete', 'Api\BookCategoryController@delete');
+});
+
 Route::group(['prefix' => 'extracurricular'], function () {
     Route::post('create', 'Api\ExtracurricularController@create');
     Route::get('list', 'Api\ExtracurricularController@list');
