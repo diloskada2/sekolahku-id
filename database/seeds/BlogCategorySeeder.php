@@ -14,12 +14,10 @@ class BlogCategorySeeder extends Seeder
     {
         $data = array(
             [
-                "id" => 1,
                 "blog_category_name" => "Fiksi",
                 "blog_category_description" => "Kategori fiksi adalah ...."
             ],
             [
-                "id" => 2,
                 "blog_category_name" => "Pendidikan",
                 "blog_category_description" => "Kategori pendidikan adalah ...."
             ]
