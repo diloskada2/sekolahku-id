@@ -1,5 +1,6 @@
 <?php
 
+use App\StudentTrack;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(BlogSeeder::class);
         $this->call(CanteenSeeder::class);
         $this->call(CriticismsSuggestionsSeeder::class);
+        $this->call(StudentTrack::class);
     }
 }
