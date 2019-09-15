@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CriticismsSuggestionsSeeder::class);
         $this->call(StudentTrack::class);
         $this->call(ClassesSeeder::class);
+        $this->call(BookCategories::class);
     }
 }
