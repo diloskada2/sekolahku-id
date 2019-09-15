@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(StudentTrack::class);
         $this->call(ClassesSeeder::class);
         $this->call(BookCategories::class);
+        $this->call(PublisherSeeder::class);   
     }
 }
