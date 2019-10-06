@@ -19,8 +19,8 @@
                     <br />
                     <div class="row">
                         <div class="col-md-4">
-                            <h5>CREATE</h5>
                             <div class="form-group">
+                                <label for="religion-name">Religion Name</label>
                                 <input id="religion-name" placeholder="Religion Name" type="text" class="form-control">
                             </div>
 
@@ -28,8 +28,16 @@
                         </div>
                         <div class="col-md-1"></div>
                         <div class="col-md-7">
-                            <h5>LIST</h5>
-                            <ul id="religion-lists"></ul>
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Religion Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="religion-lists">
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -68,9 +76,19 @@
         }
 
         function setUpList(religions) {
-            religions.forEach(religion => { 
+            religions.forEach((religion, index) => { 
                 let element = $("#religion-lists");
-                element.append("<li>" + religion.religion_name + "</li>");
+                let no = index + 1;
+                element.append(
+                    "<tr>" 
+                        + "<td>" 
+                        + no
+                        + "</td>"
+                        + "<td>" 
+                        + religion.religion_name 
+                        + "</td>"
+                    + "</tr>"
+                    );
             });
         }
 
