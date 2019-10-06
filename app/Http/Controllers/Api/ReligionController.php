@@ -60,7 +60,8 @@ class ReligionController extends Controller
         } catch (\Exception $error) {
             $response = [
                 "success" => false,
-                "message" => $error->getMessage()
+                "message" => "Failed to get religion lists.",
+                "error" => $error->getMessage()
             ];
 
             return response()->json($response, 500);
