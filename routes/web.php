@@ -18,3 +18,7 @@ Route::get('/', function () {
 Route::get('/religion', function () {
     return view('religion');
 });
+
+Route::get('/classes', function () {
+    return view('classes');
+});
