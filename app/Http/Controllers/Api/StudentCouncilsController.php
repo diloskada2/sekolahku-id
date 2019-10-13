@@ -12,7 +12,7 @@ class StudentCouncilsController extends Controller
         try {
             $validator = \Validator::make($request->all(), [
                 'leader'        => 'required',
-                '2nd_leader'    => 'required',
+                'vice_leader'   => 'required',
                 'secretary'     => 'required',
                 'treasurer'     => 'required',
                 'coach'         => 'required'
@@ -110,7 +110,7 @@ class StudentCouncilsController extends Controller
             $validator = \Validator::make($request->all(), [
                 'id' => 'required|exists:student_councils,id',
                 'leader'     => 'required',
-                '2nd_leader'   => 'required',
+                'vice_leader'   => 'required',
                 'secretary'   => 'required',
                 'treasurer'   => 'required',
                 'coach'   => 'required'

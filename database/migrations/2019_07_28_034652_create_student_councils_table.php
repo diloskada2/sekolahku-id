@@ -16,7 +16,7 @@ class CreateStudentCouncilsTable extends Migration
         Schema::create('student_councils', function (Blueprint $table) {
             $table->increments('id');
             $table->string('leader');
-            $table->string('2nd_leader');
+            $table->string('vice_leader');
             $table->string('secretary');
             $table->string('treasurer');
             $table->string('coach');
